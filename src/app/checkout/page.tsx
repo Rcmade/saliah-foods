@@ -102,15 +102,6 @@ const Checkout = () => {
     } else {
       setShowLoggingMessage("");
     }
-    return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-  useEffect(() => {
-    if (!user?._id) {
-      setShowLoggingMessage(defaultMessage);
-    } else {
-      setShowLoggingMessage("");
-    }
     return () => { };
   }, [user]);
 
@@ -125,7 +116,6 @@ const Checkout = () => {
       handlecoupon(form.getValues().coupon || "");
     }
     return () => { };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalValue]);
 
   const handlecoupon = async (coupon:string) =>{
