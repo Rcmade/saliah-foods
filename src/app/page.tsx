@@ -8,6 +8,8 @@ import ProductCollections from "@/components/Landing/ProductCollections";
 import axios from "axios";
 import { getProductsData } from "@/lib/actions/product-actions";
 
+export const fetchCache = "force-no-store";
+export const dynamic = "force-dynamic";
 export default async function Home() {
   const data = await getProductsData();
   return (
