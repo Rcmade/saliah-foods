@@ -116,6 +116,7 @@ const Checkout = () => {
       handlecoupon(form.getValues().coupon || "");
     }
     return () => { };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalValue]);
 
   const handlecoupon = async (coupon:string) =>{
