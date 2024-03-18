@@ -47,7 +47,7 @@ const BestSeller = (props: any) => {
   };
 
   const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
-
+  console.log({ data });
   return (
     <>
       <div className="text-center  flex gap-6 justify-center text-[#847A73] ">
@@ -132,10 +132,17 @@ const BestSeller = (props: any) => {
                       </div>
                       <div>
                         <button
-                          onClick={() => handleCart(item)}
+                          disabled={!item?.quantity}
+                          onClick={() => {
+                            if (!item?.quantity) {
+                              toast.error("This product is out of stock");
+                            } else {
+                              handleCart(item);
+                            }
+                          }}
                           className="bg-primary-500 text-white px-4 py-2 border border-white text-[12px]"
                         >
-                          ADD TO CART
+                          {item?.quantity ? "ADD TO CART" : "Out of stock"}
                         </button>
                       </div>
                     </div>
@@ -196,10 +203,17 @@ const BestSeller = (props: any) => {
                       </div>
                       <div>
                         <button
-                          onClick={() => handleCart(item)}
+                          disabled={!item?.quantity}
+                          onClick={() => {
+                            if (!item?.quantity) {
+                              toast.error("This product is out of stock");
+                            } else {
+                              handleCart(item);
+                            }
+                          }}
                           className="bg-primary-500 text-white px-4 py-2 border border-white text-[12px]"
                         >
-                          ADD TO CART
+                          {item?.quantity ? "ADD TO CART" : "Out of stock"}
                         </button>
                       </div>
                     </div>
@@ -260,10 +274,17 @@ const BestSeller = (props: any) => {
                       </div>
                       <div>
                         <button
-                          onClick={() => handleCart(item)}
+                          disabled={!item?.quantity}
+                          onClick={() => {
+                            if (!item?.quantity) {
+                              toast.error("This product is out of stock");
+                            } else {
+                              handleCart(item);
+                            }
+                          }}
                           className="bg-primary-500 text-white px-4 py-2 border border-white text-[12px]"
                         >
-                          ADD TO CART
+                          {item?.quantity ? "ADD TO CART" : "Out of stock"}
                         </button>
                       </div>
                     </div>
