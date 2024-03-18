@@ -19,7 +19,8 @@ export const metadata: Metadata = {
   description: "Enjoy the best quality food at the best price",
 
 };
-
+export const fetchCache = "force-no-store";
+export const dynamic = "force-dynamic";
 export default function RootLayout({
   children,
 }: Readonly<{
