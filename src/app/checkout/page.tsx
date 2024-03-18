@@ -102,7 +102,7 @@ const Checkout = () => {
     } else {
       setShowLoggingMessage("");
     }
-    return () => { };
+    return () => {};
   }, [user]);
 
   const couponForm = useForm<z.infer<typeof couponSchema>>({
@@ -115,24 +115,26 @@ const Checkout = () => {
     if (totalValue && form.getValues().coupon) {
       handlecoupon(form.getValues().coupon || "");
     }
-    return () => { };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalValue]);
 
-  const handlecoupon = async (coupon:string) =>{
-    if(!coupon)return;
-    const {data} = await axios.post('/api/coupon', { couponCode:coupon, totalAmount: totalValue});
+  const handlecoupon = async (coupon: string) => {
+    if (!coupon) return;
+    const { data } = await axios.post("/api/coupon", {
+      couponCode: coupon,
+      totalAmount: totalValue,
+    });
     if (data.data) {
       setDiscount(data.data);
       form.setValue("coupon", coupon, { shouldValidate: true });
       toast.error(data?.message || "Coupon code applied");
       setDiscountedTotal(totalValue - data.data);
     } else {
-
-      console.error('Invalid coupon code from frontend');
+      console.error("Invalid coupon code from frontend");
       toast.error(data?.error || "Invalid coupon code");
     }
-  }
+  };
   const handleApplyCoupon = async (values: z.infer<typeof couponSchema>) => {
     handlecoupon(values?.coupon || "");
   };
@@ -154,16 +156,16 @@ const Checkout = () => {
 
   async function onSubmit(values: z.infer<typeof checkoutSchema>) {
     try {
-      console.log(values)
+      console.log(values);
       setIsLoading(true);
-      console.log(discountedTotal)
+      console.log(discountedTotal);
       if (user) {
         const data: any = await handlePaymentAction(
           values,
           cartState?.cartItems as unknown as OrderItem[],
           { total: discountedTotal, totalQuantity },
           user?._id || ""
-        );        
+        );
         if (!data?.error) {
           const options = {
             key: process.env.NEXT_PUBLIC_RAZORPAY_API_KEY,
@@ -220,7 +222,7 @@ const Checkout = () => {
           paymentObject.on("payment.failed", function (response: any) {
             toast.error(
               String(response?.error?.description) ||
-              "Payment failed. Please try again. Contact support for help"
+                "Payment failed. Please try again. Contact support for help"
             );
           });
         } else if (data?.error) {
@@ -458,10 +460,9 @@ const Checkout = () => {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-
                               {(
                                 countryStateData[
-                                selectedCountry as keyof CountryStateData
+                                  selectedCountry as keyof CountryStateData
                                 ] || []
                               ).map((c: string) => (
                                 <SelectItem key={c} value={c}>
@@ -591,7 +592,7 @@ const Checkout = () => {
                                 <h3 className="text-[18px]">
                                   {value?.product?.name}
                                 </h3>
-                                <span>₹{value?.total}</span>
+                                <span>₹{(+value?.total).toFixed(2)}</span>
                               </div>
                               <div className="flex items-center mt-[2px] mb-2 justify-between">
                                 <div className="text-light-500 text-sm">
@@ -654,7 +655,11 @@ const Checkout = () => {
               <div className="flex items-center justify-between gap-2 mt-6">
                 <div className="grid w-full max-w-sm items-center gap-1.5">
                   <Form {...couponForm}>
-                    <form id="couponForm" className="flex items-end gap-x-2" onSubmit={couponForm.handleSubmit(handleApplyCoupon)}>
+                    <form
+                      id="couponForm"
+                      className="flex items-end gap-x-2"
+                      onSubmit={couponForm.handleSubmit(handleApplyCoupon)}
+                    >
                       <FormField
                         control={couponForm.control}
                         name="coupon"
@@ -682,11 +687,11 @@ const Checkout = () => {
                 </div>
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>₹{+totalValue - discount}</span>
+                  <span>₹{+(+totalValue - discount).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between font-semibold">
                   <span>Total</span>
-                  <span>₹{+totalValue - discount}</span>
+                  <span>₹{+(+totalValue - discount).toFixed(2)}</span>
                 </div>
                 <p>
                   Your personal data will be used to process your order, support
