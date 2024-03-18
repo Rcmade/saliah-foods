@@ -11,23 +11,26 @@ interface buttonProps {
   couponSvg?: boolean;
   plusIcon?: boolean;
   cartGolden?: boolean;
+  disabled?: boolean;
 }
 const Button = ({
   text,
   onClick,
   className,
-  parentClass="",
+  parentClass = "",
   rightArrow,
   cartIcon,
   arrowBack,
   couponSvg,
   plusIcon,
   cartGolden,
+  disabled,
 }: buttonProps) => {
   return (
     <>
       <div className={`w-full my-2 ${parentClass}`}>
         <button
+          disabled={disabled}
           onClick={onClick}
           className={`bg-primary-500 text-white py-[10px] px-4 md:px-6 rounded-full flex items-center md:text-[16px] text-[12px] gap-2 ${className}`}
         >

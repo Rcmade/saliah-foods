@@ -142,7 +142,6 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
       varient: item,
     }));
   };
-
   return (
     <>
       <div className="px-3 py-3 md:py-10 md:px-20 bg-[url('/net.png')] bg-contain">
@@ -267,8 +266,11 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
               </div>
               <div>
                 <Button
+                  disabled={!targetProduct?.quantity}
                   cartIcon={true}
-                  text="Add to Cart"
+                  text={
+                    targetProduct?.quantity ? "Add to Cart" : "Out of stock"
+                  }
                   onClick={handleCart}
                   className="px-6"
                 />

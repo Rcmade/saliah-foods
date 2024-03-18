@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { ActionTypes, useCart } from "../cart";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const Index = (props: any) => {
   const router = useRouter();
@@ -114,19 +115,25 @@ const Index = (props: any) => {
                     <div>
                       <span className="font-semibold mr-2">
                         ₹
-                        {selectedVariants?.[value._id]?.price_range?.min_price ||
+                        {selectedVariants?.[value._id]?.price_range
+                          ?.min_price ||
                           value?.varient?.[0]?.price_range?.min_price}
                       </span>
                       <span className="line-through text-sm font-semibold text-light-500">
                         ₹
-                        {selectedVariants?.[value._id]?.price_range?.max_price ||
+                        {selectedVariants?.[value._id]?.price_range
+                          ?.max_price ||
                           value?.varient?.[0]?.price_range?.max_price}
                       </span>
                     </div>
                     <div
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleCart(value);
+                        if (!value?.quantity) {
+                          toast.error("This product is out of stock");
+                        } else {
+                          handleCart(value);
+                        }
                       }}
                     >
                       <Image
@@ -134,9 +141,15 @@ const Index = (props: any) => {
                         alt="cart"
                         width={28}
                         height={28}
-                        className="md:hidden block"
+                        className={`md:hidden block`}
                       />
-                      <Button className="hidden md:block"> Add to cart</Button>
+                      <Button
+                        disabled={!value?.quantity}
+                        className="hidden md:block"
+                      >
+                        {" "}
+                        Add to cart
+                      </Button>
                     </div>
                   </div>
                 </div>
