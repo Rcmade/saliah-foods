@@ -5,7 +5,6 @@ import Link from "next/link";
 import Testimonials from "@/components/Landing/Testimonials";
 import DateSyrup from "@/components/Landing/DateSyrup";
 import ProductCollections from "@/components/Landing/ProductCollections";
-import axios from "axios";
 import { getProductsData } from "@/lib/actions/product-actions";
 
 export const fetchCache = "force-no-store";
@@ -84,46 +83,9 @@ export default async function Home() {
         <h3 className="md:hidden block text-center text-3xl text-primary-500">
           Customer’s Love
         </h3>
-        {/* <p className="md:text-4xl md:px-8 md:my-12 my-6">
-          “This guy is true professional and very experienced in migration and
-          server configuration. He was able to complete my order in time and as
-          per agreed scope. Highly recommend!”
-        </p> */}
+      
         <Testimonials />
-        {/* <div className="max-w-[400px] m-auto flex gap-6 items-center">
-          <div>
-            <Image
-              src={"/svg/doubleArrow-left.svg"}
-              alt="previous"
-              width={25}
-              height={31}
-              className="cursor-pointer"
-            />
-          </div>
-          <div className="flex gap-2">
-            <div>
-              <Image
-                src={"/reviewUser.png"}
-                alt="previous"
-                width={60}
-                height={60}
-              />
-            </div>
-            <div>
-              <h3 className="text-primary-500 text-xl">Camelia Harrington</h3>
-              <span className="text-light-500 text-sm">Hotel Client</span>
-            </div>
-          </div>
-          <div>
-            <Image
-              src={"/svg/doubleArrow-right.svg"}
-              alt="next"
-              width={25}
-              height={31}
-              className="cursor-pointer"
-            />
-          </div>
-        </div> */}
+     
       </div>
     </div>
   );

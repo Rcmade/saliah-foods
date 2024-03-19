@@ -70,7 +70,7 @@ const Index = (props: any) => {
                 onClick={() => handleClick(value._id)}
               >
                 <Image
-                  className="cursor-pointer rounded-lg w-full md:h-full h-[140px] object-contain"
+                  className="cursor-pointer rounded-lg w-full md:h-full max-h-[30rem] h-[140px] object-contain"
                   src={value.images[0]}
                   alt="Description of the image"
                   width={1334} // Replace with the actual width you want

@@ -309,7 +309,7 @@ const Checkout = () => {
               />
             </Link>
           </div>
-          <div className="flex gap-2 text-light-500 items-center w-full ml-[10%]">
+          <div className="flex gap-2 text-light-500 items-center w-full ml-[24.5%]">
             <h2 className="md:text-4xl text-primary-500 text-2xl text-end md:text-center">
               CHECKOUT
             </h2>

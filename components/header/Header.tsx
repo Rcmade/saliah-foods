@@ -85,18 +85,12 @@ const Header = () => {
         className={`flex  relative justify-between bg-[#1A5632] text-primary-500 items-center py-4 px-4 sm:px-16 md:px-20 ${mulish.className}`}
       >
         <div className="md:flex gap-8 text-[1.25rem] hidden">
-          <div
-            className="cursor-pointer"
-            onClick={() => router.push("/our-story")}
-          >
+          <Link className="block" href="/our-story">
             OUR STORY
-          </div>
-          <div
-            className="cursor-pointer"
-            onClick={() => router.push("/product-list")}
-          >
+          </Link>
+          <Link className="block" href="/product-list">
             SHOP
-          </div>
+          </Link>
         </div>
         {menu ? (
           <div className="sidebar px-4 py-5  bg-[#F7F2ED] block md:hidden w-[70vw] h-screen fixed top-0 left-0 z-10">
@@ -116,8 +110,8 @@ const Header = () => {
                     setMenu(!menu), router.push("/account-info");
                   }}
                 >
-                  <span className="font-semibold text-[1.25rem]  ">
-                    `` {user.name}
+                  <span className="font-semibold  text-[1.25rem]  ">
+                    {user.name}
                   </span>
                   <span>
                     <Image
@@ -187,29 +181,12 @@ const Header = () => {
         </div>
         <div className="flex gap-8 text-sm items-center user-container">
           {user ? (
-            // <div>
-            //   <div
-            //     className="gap-2 items-center cursor-pointer hidden md:flex"
-            //     onClick={() => router.push("/account-info")}
-            //   >
-            // <span className="font-semibold text-[1.25rem] ">
-            //   {user.name}
-            //   {/* Alex */}
-            // </span>
-            //     <span>
-            //       <Image
-            //         src={"/svg/dropdown.svg"}
-            //         alt="dropdown"
-            //         width={16}
-            //         height={16}
-            //       />
-            //     </span>
-            //   </div>
-            // </div>
-
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center">
-                <span className="font-semibold text-[1.25rem] ">
+                <span
+                  title={user?.name}
+                  className="font-semibold text-[1.25rem] max-w-28 overflow-hidden"
+                >
                   {user.name}
                 </span>
                 <span>

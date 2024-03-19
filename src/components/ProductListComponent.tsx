@@ -250,8 +250,9 @@ const ProductListComponent = ({ products }: { products: ProductSchema[] }) => {
             ALL PRODUCTS
           </span>
           <span className="text-lg md:w-[600px] font-semibold text-[#C3966F]">
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui
-            blanditiis voluptatum deleniti.
+            Our date syrup can be used in addition to or instead of honey or
+            syrup and as a substitute for refined sugar in baking and cooking.
+            Mix in cereal or coffee for a hint of sweetness.
           </span>
         </div>
       </div>
