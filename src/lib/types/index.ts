@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { AddressSchema } from "../schemas/address.schema";
+
 export type NotificationType =
   | "WELCOME"
   | "CHANGE_OF_STOCK"
@@ -9,12 +12,15 @@ export type EmailContent = {
   body: string;
 };
 
-
 export type TransformedOrderDataType = {
   name: string;
   createdAt: string;
   total: number;
   status: string;
   orderId: string;
+  _id: string;
+};
+
+export type AddressT = z.infer<typeof AddressSchema> & {
   _id: string;
 };

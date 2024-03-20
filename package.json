@@ -54,7 +54,8 @@
     "tailwindcss-animate": "^1.0.7",
     "twilio": "^4.22.0",
     "usehooks-ts": "^2.15.1",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@fouita/slider": "^0.0.4",

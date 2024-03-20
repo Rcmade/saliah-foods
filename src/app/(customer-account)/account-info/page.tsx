@@ -18,6 +18,7 @@ import { transformedOrderData } from "@/lib/utils";
 import { TransformedOrderDataType } from "@/lib/types";
 import { CircleUserRound } from "lucide-react";
 import { User } from "@/lib/interface";
+import Address from "@/components/Address/Address";
 
 const MyAccount = () => {
   const searchParams = useSearchParams();
@@ -124,6 +125,7 @@ const MyAccount = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  
   return (
     <>
       <div className="md:p-20 md:pt-10 overflow-hidden">
@@ -328,64 +330,9 @@ const MyAccount = () => {
               </div>
             )}
             {menu === "Addresses" && (
-              <div className="text-xs flex flex-col">
-                <Button
-                  plusIcon={true}
-                  text="ADD A NEW ADDRESS"
-                  className="!bg-transparent text-primary-500 border border-primary-500 ml-6 md:ml-0 mb-10 md:w-full rounded-md !px-4"
-                />
-                <div className="grid gap-8  grid-cols-1 px-6 md:px-0 md:grid-cols-2 mt-8">
-                  <div className="border-2 p-6 rounded-md">
-                    <div className="flex justify-between">
-                      <h3 className="font-semibold">Billing address</h3>
-                      <div className="flex gap-2 cursor-pointer">
-                        <Image
-                          src={"/edit.png"}
-                          alt="edit"
-                          width={20}
-                          height={20}
-                          className="!w-[20px] !h-[20px]"
-                        />
-                        <span className="font-semibold">Edit</span>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <div>Jill Dower</div>
-                      <div>Nayzak Design</div>
-                      <div>10 Strudwick CourtLondonSW4 6TE</div>
-                      <div>United Kingdom (UK)</div>
-                    </div>
-                  </div>
-                  <div className="border-2 p-6 rounded-md">
-                    <div className="flex justify-between">
-                      <h3 className="font-semibold">Shipping address</h3>
-                      <div className="flex gap-2 cursor-pointer">
-                        <Image
-                          src={"/edit.png"}
-                          alt="edit"
-                          width={20}
-                          height={20}
-                          className="!w-[20px] !h-[20px]"
-                        />
-                        <span className="font-semibold">Edit</span>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <div>Jill Dower</div>
-                      <div>Nayzak Design</div>
-                      <div>10 Strudwick CourtLondonSW4 6TE</div>
-                      <div>United Kingdom (UK)</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="w-full flex justify-end my-12 pr-6 md:pr-0">
-                  <Button
-                    text="Update"
-                    parentClass="!w-fit"
-                    className="!px-8"
-                  />
-                </div>
-              </div>
+              <>
+                <Address />
+              </>
             )}
             {menu === "Account details" && (
               <div className="lex flex-col text-xs px-10 mb-10">
