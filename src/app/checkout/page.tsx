@@ -1,9 +1,6 @@
 "use client";
 import Image from "next/image";
 import Button from "../../../components/button/Button";
-import InputField from "../../../components/input-field/input-field";
-import DropDownField from "../../../components/dropdown/dropdown";
-import InputTextarea from "../../../components/text-area/text-area";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ActionTypes, useCart } from "../cart";
@@ -31,27 +28,20 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useUser } from "@/components/Providers/user-provider";
 import { toast } from "sonner";
-import {
-  createOrUpdateUser,
-  loginAction,
-  sendOtp,
-} from "@/lib/actions/user-actions";
+import { createOrUpdateUser, sendOtp } from "@/lib/actions/user-actions";
 import {
   CountryStateData,
   OrderItem,
   RazorpayPaymentSuccess,
-  User,
 } from "@/lib/interface";
 import { Mulish } from "next/font/google";
 import Link from "next/link";
 const mulish = Mulish({ subsets: ["latin"] });
 import { countryStateData } from "@/data/country-state-data";
-import {
-  handleCheckoutAction,
-  handlePaymentAction,
-} from "@/lib/actions/checkout-actions";
+import { handlePaymentAction } from "@/lib/actions/checkout-actions";
 import { useRouter } from "next/navigation";
 import OtpDialog from "@/components/Dialogs/OtpModal";
+import { useAddressModal } from "@/hooks/useAddressModal";
 
 const Checkout = () => {
   const { cartState, cartDispatch } = useCart();
@@ -77,6 +67,7 @@ const Checkout = () => {
     disabled: false,
     phone: null,
   });
+  const { getAddressArray, addressArray } = useAddressModal();
   const [showLoggingMessage, setShowLoggingMessage] = useState("");
   const defaultMessage =
     "Welcome! It seems you're not logged in. Please enter your phone number to either log in or create an account.";
@@ -104,6 +95,32 @@ const Checkout = () => {
     }
     return () => {};
   }, [user]);
+
+  useEffect(() => {
+    const getAddress = async () => {
+      if (user?._id) await getAddressArray(user?._id);
+    };
+    if (user?._id) {
+      getAddress();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  useEffect(() => {
+    if (addressArray?.length) {
+      
+      form.reset((values) => ({
+        ...values,
+        streetAddress: addressArray[0].streetAddress || "",
+        city: addressArray[0].city || "",
+        state: addressArray[0].state || "",
+        pinCode: String(addressArray[0].pinCode||"") || "",
+        phone: values.phone || addressArray[0].phone || "",
+      }));
+    }
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addressArray]);
 
   const couponForm = useForm<z.infer<typeof couponSchema>>({
     resolver: zodResolver(couponSchema),
@@ -156,9 +173,7 @@ const Checkout = () => {
 
   async function onSubmit(values: z.infer<typeof checkoutSchema>) {
     try {
-      console.log(values);
       setIsLoading(true);
-      console.log(discountedTotal);
       if (user) {
         const data: any = await handlePaymentAction(
           values,

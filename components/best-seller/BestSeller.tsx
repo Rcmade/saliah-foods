@@ -47,7 +47,6 @@ const BestSeller = (props: any) => {
   };
 
   const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
-  console.log({ data });
   return (
     <>
       <div className="text-center  flex gap-6 justify-center text-[#847A73] ">
