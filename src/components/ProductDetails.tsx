@@ -142,6 +142,10 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
       varient: item,
     }));
   };
+
+  const maxPrice = productData?.varient?.price_range?.max_price;
+  const minPrice = productData?.varient?.price_range?.min_price;
+  const discountPercentage = maxPrice ? ((maxPrice - minPrice) / maxPrice) * 100 : 0;
   return (
     <>
       <div className="px-3 py-3 md:py-10 md:px-20 bg-[url('/net.png')] bg-contain">
@@ -184,18 +188,7 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
                 className="w-[500px] rounded-xl bg-white"
               />
             </div>
-            {/* <div className="flex justify-between md:gap-0 mt-4">
-              {targetProduct?.images?.map((value: any, index: any) => (
-                <Image
-                  src={value}
-                  alt="home"
-                  width={121}
-                  height={110}
-                  key={index}
-                  className="rounded-xl mx-2 cursor-pointer bg-white"
-                />
-              ))}
-            </div> */}
+           
           </div>
           <div>
             <h2 className="text-[#1A5632] font-semibold tracking-wide">
@@ -210,15 +203,15 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
             <div className="flex gap-2 items-center mt-4">
               <span className="line-through text-light-500">
                 {/* ₹{productData?.varient?.price_range?.max_price * state?.count} */}
-                ₹{productData?.varient?.price_range?.max_price}
+                ₹{maxPrice}
               </span>
               <div>
                 <span>
-                  ₹{productData?.varient?.price_range?.min_price * state?.count}
+                  ₹{minPrice * state?.count}
                 </span>
               </div>
               <span className="text-xs font-sans bg-green-200 px-2 py-[2px] rounded-full">
-                64% Off
+                {discountPercentage.toFixed(0)}% Off
               </span>
             </div>
             <p className="text-light-500 mt-6 mb-4">
