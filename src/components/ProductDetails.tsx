@@ -14,6 +14,7 @@ import ProductReview from "./ProductDetailsPage/ProductReview";
 import RatingForm from "./ProductDetailsPage/RatingForm";
 import { useWishlist } from "./Providers/wish-list-provider";
 import HeartIcon from "./Icons/HeartIcon";
+import ProductDetailsCarousel from "./Carousel/ProductDetailsCarousel";
 const getHash = () =>
   typeof window !== "undefined"
     ? decodeURIComponent(window.location.hash.replace("#", ""))
@@ -113,7 +114,6 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
     String(targetProduct?.price_range?.min_price ?? "").replace(/[^\d.-]/g, "")
   );
   const price = isNaN(numericProductPrice) ? 0 : numericProductPrice;
-  const newProductPrice = Math.round(state?.count * price);
 
   const { toggleSidebar } = useCart();
   const { addToWishlist, wishlist, removeFromWishlist } = useWishlist();
@@ -145,7 +145,9 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
 
   const maxPrice = productData?.varient?.price_range?.max_price;
   const minPrice = productData?.varient?.price_range?.min_price;
-  const discountPercentage = maxPrice ? ((maxPrice - minPrice) / maxPrice) * 100 : 0;
+  const discountPercentage = maxPrice
+    ? ((maxPrice - (minPrice||0)) / maxPrice) * 100
+    : 0;
   return (
     <>
       <div className="px-3 py-3 md:py-10 md:px-20 bg-[url('/net.png')] bg-contain">
@@ -176,21 +178,10 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
             <span className="text-success-green-900">Dates</span>
           </div>
         </div>
-        {/* product section and add to cart */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20 mt-8">
-          <div className="md:flex md:flex-col md:items-center">
-            <div>
-              <Image
-                src={targetProduct?.images[0] ?? ""}
-                alt="home"
-                width={500}
-                height={508}
-                className="w-[500px] rounded-xl bg-white"
-              />
-            </div>
-           
-          </div>
+          <ProductDetailsCarousel images={targetProduct?.images||[]} />
           <div>
+        {/* product section and add to cart */}
             <h2 className="text-[#1A5632] font-semibold tracking-wide">
               {targetProduct?.category}
             </h2>
@@ -206,9 +197,7 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
                 ₹{maxPrice}
               </span>
               <div>
-                <span>
-                  ₹{minPrice * state?.count}
-                </span>
+                <span>₹{minPrice * state?.count}</span>
               </div>
               <span className="text-xs font-sans bg-green-200 px-2 py-[2px] rounded-full">
                 {discountPercentage.toFixed(0)}% Off
@@ -236,7 +225,6 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
             </div>
             <div className="flex gap-4  items-center mt-4 border-b border-[#E1CBB7] pb-6">
               <div>
-                {/* <IncrementDecrementButton /> */}
                 <div className="flex gap-2 justify-center items-center w-[100px] border border-[#e5e5e9] px-2 py-[8px] bg-white rounded-full">
                   <UiButton
                     className="rounded-full w-6 h-6 bg-[#e5e5e9]"
@@ -387,40 +375,6 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
         )}
         {tab === "Customer Feedback" && (
           <ProductReview productId={product?._id} />
-          // <div className="grid gap-8 mb-8">
-
-          //    {reviewCollection?.map((review, index) => {
-          //     return (
-          //       <div key={index}>
-          //         <div className="flex justify-between">
-          //           <div className="flex items-center gap-2">
-          //             <div>
-          //               <Image
-          //                 src={review.imageUrl}
-          //                 alt="user"
-          //                 width={32}
-          //                 height={32}
-          //               />
-          //             </div>
-          //             <div>
-          //               <h4>{review.name}</h4>
-          //               <RatingStar />
-          //             </div>
-          //           </div>
-          //           <div className="text-light-500">{review.time}</div>
-          //         </div>
-          //         <p className="text-light-500 mt-2">{review.comment}</p>
-          //       </div>
-          //     );
-          //   })}
-          //    <div className="md:w-[50%] w-full">
-          //     <h3 className="text-2xl font-semibold">Post your review</h3>
-          //     <InputField placeholder="Enter your name" />
-          //     <InputField type="email" placeholder="Email Id" />
-          //     <InputTextarea placeholder="Enter your review" />
-          //   </div>
-          //    <Button text="Submit" />
-          // </div>
         )}
 
         <div className="block md:hidden lg:hidden my-6">
@@ -444,7 +398,7 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
                       ></div>
                     </div>
                   )}
-
+                  {/* 
                   {tab.tabItem === "Additional Information" && (
                     <div>
                       <div className="flex items-center gap-2 pb-2">
@@ -461,50 +415,9 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
                         </p>
                       </div>
                     </div>
-                  )}
-
+                  )} */}
                   {tab.tabItem === "Customer Feedback" && (
                     <ProductReview productId={product?._id} />
-
-                    // <div>
-                    //   <div className="grid md:gap-8 gap-4 mb-8">
-                    //     {reviewCollection?.map((review, ind) => (
-                    //       <div key={ind}>
-                    //         <div className="flex justify-between">
-                    //           <div className="flex items-center gap-2">
-                    //             <div>
-                    //               <Image
-                    //                 src={review.imageUrl}
-                    //                 alt="user"
-                    //                 width={32}
-                    //                 height={32}
-                    //               />
-                    //             </div>
-                    //             <div>
-                    //               <h4>{review.name}</h4>
-                    //               <RatingStar />
-                    //             </div>
-                    //           </div>
-                    //           <div className="text-light-500">
-                    //             {review.time}
-                    //           </div>
-                    //         </div>
-                    //         <p className="text-light-500 mt-2">
-                    //           {review.comment}
-                    //         </p>
-                    //       </div>
-                    //     ))}
-                    //   </div>
-                    //   <div className="md:w-[50%] w-full">
-                    //     <h3 className="text-xl font-semibold text-center">
-                    //       Post your review
-                    //     </h3>
-                    //     <InputField placeholder="Enter your name" />
-                    //     <InputField type="email" placeholder="Email Id" />
-                    //     <InputTextarea placeholder="Enter your review" />
-                    //     <Button text="Submit" />
-                    //   </div>
-                    // </div>
                   )}
                 </div>
               )}
@@ -526,35 +439,6 @@ const tabCollection = [
   },
   {
     tabItem: "Customer Feedback",
-  },
-];
-const reviewCollection = [
-  {
-    imageUrl: "/reviewUser.png",
-    name: "Kristin Watson",
-    time: "2 min ago",
-    comment: "Duis at ullamcorper nulla, eu dictum eros.",
-  },
-  {
-    imageUrl: "/reviewUser.png",
-    name: "Jane Cooper",
-    time: "30 Apr, 2021",
-    comment:
-      "Keep the soil evenly moist for the healthiest growth. If the sun gets too hot, Chinese cabbage tends to 'bolt' or go to seed; in long periods of heat, some kind of shade may be helpful. Watch out for snails, as they will harm the plants.",
-  },
-  {
-    imageUrl: "/reviewUser.png",
-    name: "Jacob Jones",
-    time: "2 min ago",
-    comment:
-      " Vivamus eget euismod magna. Nam sed lacinia nibh, et lacinia lacus.",
-  },
-  {
-    imageUrl: "/reviewUser.png",
-    name: "Ralph Edwards",
-    time: "2 min ago",
-    comment:
-      "200+ Canton Pak Choi Bok Choy Chinese Cabbage Seeds Heirloom Non-GMO Productive Brassica rapa VAR. chinensis, a.k.a. Canton's Choice, Bok Choi, from USA",
   },
 ];
 
