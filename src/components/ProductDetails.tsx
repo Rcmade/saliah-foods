@@ -434,9 +434,9 @@ const tabCollection = [
   {
     tabItem: "Descriptions",
   },
-  {
-    tabItem: "Additional Information",
-  },
+  // {
+  //   tabItem: "Additional Information",
+  // },
   {
     tabItem: "Customer Feedback",
   },
