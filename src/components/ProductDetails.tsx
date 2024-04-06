@@ -356,7 +356,7 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
             })}
           </div>
         )}
-        {tab === "Additional Information" && (
+        {/* {tab === "Additional Information" && (
           <div>
             <div className="flex items-center gap-2 pb-2">
               <div className="flex-none">
@@ -372,7 +372,7 @@ const ProductDetails = ({ product }: { product: ProductSchema }) => {
               </p>
             </div>
           </div>
-        )}
+        )} */}
         {tab === "Customer Feedback" && (
           <ProductReview productId={product?._id} />
         )}
