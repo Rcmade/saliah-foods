@@ -321,16 +321,16 @@ const Header = () => {
                 <Image src={"/close.png"} alt="close" width={20} height={20} />
               </div>
             </div>
-            <div className="grid gap-4 overflow-auto h-[65vh]">
+            <div className="grid">
               {cartState?.cartItems?.length > 0
                 ? cartState?.cartItems?.map((item: any, index: number) => {
                     return (
                       <React.Fragment key={index}>
                         <div
-                          className="bg-[#1A5632] rounded-md p-4 flex items-center gap-4"
+                          className="rounded-md p-4 m-4 flex border border-bg-primary"
                           key={index}
                         >
-                          <div>
+                          <div className="pr-2">
                             <Image
                               src={item?.product?.image}
                               alt="dates"
@@ -343,11 +343,11 @@ const Header = () => {
                               {item?.product?.name}
                             </h3>
                             <div className="flex items-center mt-[2px] mb-2 justify-between">
-                              <div className="text-white text-sm">
+                              <div className="text-black text-sm">
                                 <span>{item?.product?.unit} x</span>
                                 <span>{item?.product?.price}</span>
                               </div>
-                              <div className="w-fit text-white p-[2px] rounded-full border cursor-pointer">
+                              <div className="w-fit text-white p-[2px] rounded-full border cursor-pointer to-black">
                                 {/* <Image
                                 src={"/close.png"}
                                 alt="close"
@@ -356,7 +356,7 @@ const Header = () => {
                               /> */}
 
                                 <span
-                                  className="p-2 text-sm w-[20px] h-[40px] text-center rounded-full"
+                                  className="text-black p-2 text-sm w-[20px] h-[40px] text-center rounded-full"
                                   onClick={() => handleRemove(item)}
                                 >
                                   X
