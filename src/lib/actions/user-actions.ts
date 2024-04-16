@@ -46,7 +46,6 @@ export const sendOptAction = async (
   const expires = Date.now() + ttl;
   const data = `${emailOrPhone}.${name}.${otp}.${expires}`;
   const hash = await hashService.hashOtp(data);
-
   if (type === "phone") {
     await sendService.sendSMS(emailOrPhone, `Your OTP is ${otp}`);
     return { hash, message: "OTP sent successfully", expires };
@@ -75,7 +74,8 @@ export const verifyOtpAction = async (
     return { error: "OTP expired!" };
   }
   // const data = `${email}.${+otp}.${+expires}`;
-  const data = `${emailOrPhone}.${name}.${+otp}.${expires}`;
+  const data = `${emailOrPhone}.${name}.${+otp}.${expires}`.trim();
+  // console.log({ data });
   const isValid = await otpService.verifyOtp(hashedOtp, data);
 
   if (!isValid) {
@@ -189,8 +189,9 @@ export const sendOtp = async (phone: string, name = "") => {
   //Time to leave
   const ttl = 1000 * 60 * 10; // 10 minutes
   const expires = Date.now() + ttl;
-  const data = `${phone}.${otp}.${expires}`;
+  const data = `${phone}.${otp}.${expires}`.trim();
   const hash = await hashService.hashOtp(data);
+  // console.log({ data, hash });
   const sms = await sendService.sendSMS(phone, `Your OTP is ${otp}`);
   if (sms) {
     return { hash, message: "OTP sent successfully", expires };
@@ -212,7 +213,8 @@ export const createOrUpdateUser = async (
   if (Date.now() > +expires) {
     return { error: "OTP expired!" };
   }
-  const data = `${phone}.${otp}.${expires}`;
+  const data = `${phone}.${otp}.${expires}`.trim();
+  // console.log({ data, hashedOtp });
   const isValid = await otpService.verifyOtp(hashedOtp, data);
   if (!isValid) {
     return { error: "Invalid OTP" };

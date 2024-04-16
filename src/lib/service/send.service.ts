@@ -52,7 +52,7 @@ class SendService {
       return client.messages
         .create(formateData)
         .then((message) => {
-          console.log(message);
+          // console.log(message);
           return true; // SMS sent successfully
         })
         .catch((error) => {
