@@ -65,7 +65,7 @@ const Checkout = () => {
   const [discountedTotal, setDiscountedTotal] = useState(totalValue);
   const [disablePhone, setDisablePhone] = useState({
     disabled: false,
-    phone: null,
+    phone:  null,
   });
   const { getAddressArray, addressArray } = useAddressModal();
   const [showLoggingMessage, setShowLoggingMessage] = useState("");
@@ -108,13 +108,12 @@ const Checkout = () => {
 
   useEffect(() => {
     if (addressArray?.length) {
-      
       form.reset((values) => ({
         ...values,
         streetAddress: addressArray[0].streetAddress || "",
         city: addressArray[0].city || "",
         state: addressArray[0].state || "",
-        pinCode: String(addressArray[0].pinCode||"") || "",
+        pinCode: String(addressArray[0].pinCode || "") || "",
         phone: values.phone || addressArray[0].phone || "",
       }));
     }
@@ -262,6 +261,9 @@ const Checkout = () => {
   const otpHandler = async (phone: string) => {
     if (!phone) {
       return setShowLoggingMessage("Please enter a phone number");
+    } else if (phone.length > 10) {
+      setShowLoggingMessage("Phone number should be 10 digits");
+      return;
     } else {
       try {
         setIsLoading(true);

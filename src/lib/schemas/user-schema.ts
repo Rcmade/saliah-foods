@@ -23,11 +23,7 @@ export const userFormSchema = z
         (v) => (v ? emailValidator.safeParse(v).success : true),
         "Invalid email"
       ),
-    phone: z.string().refine((value) => {
-      if (value) return value.length >= 10;
-
-      return true;
-    }, "Invalid number"),
+    phone: z.string().max(10, "Invalid phone number"),
     role: z.enum(["ADMIN", "USER"]).optional(),
     agree: z.boolean().optional(),
   })
@@ -49,10 +45,7 @@ export const loginFormSchema = z
         (v) => (v ? emailValidator.safeParse(v).success : true),
         "Invalid email"
       ),
-    phone: z.string().refine((value) => {
-      if (value) return value.length >= 10;
-      return true;
-    }, "Invalid number"),
+    phone: z.string().max(10, "Invalid phone number"),
     rememberMe: z.boolean().optional(),
   })
   .partial()
@@ -68,7 +61,10 @@ export const checkoutSchema = z.object({
     .min(1, { message: "This field has to be filled." })
     .email("This is not a valid email."),
 
-  phone: z.string().min(9, { message: "Please enter a valid phone number." }),
+  phone: z
+    .string()
+    // .min(9, { message: "Please enter a valid phone number." })
+    .max(10, { message: "Please enter a valid phone number." }),
   country: z.string().min(1, { message: "This field has to be filled." }),
   state: z.string().min(1, { message: "This field has to be filled." }),
   city: z.string().min(1, { message: "This field has to be filled." }),
