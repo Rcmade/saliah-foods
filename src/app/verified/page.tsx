@@ -18,9 +18,9 @@ const VerifiedMail = () => {
             className="mb-4 cursor-pointer"
             onClick={() => router.back()}
           />
-          <h2 className="text-4xl text-primary-500">Email Verified</h2>
+          <h2 className="text-4xl text-primary-500">You are verified</h2>
           <p className="text-light-500 flex flex-wrap">
-            Your Email has been verified. Click below to log In.
+            Your credentials has been verified. Click below to log In.
           </p>
           <div>
             <Button
