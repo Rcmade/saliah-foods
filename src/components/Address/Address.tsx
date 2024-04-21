@@ -14,10 +14,13 @@ const Address = () => {
     await getAddressArray(user?._id || "");
   };
   useEffect(() => {
-    getAddress();
+    if (user?._id) {
+      getAddress();
+    }
+
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   return (
     <>
