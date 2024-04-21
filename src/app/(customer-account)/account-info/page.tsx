@@ -125,7 +125,6 @@ const MyAccount = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  
   return (
     <>
       <div className="md:p-20 md:pt-10 overflow-hidden">
@@ -149,6 +148,7 @@ const MyAccount = () => {
                     }`}
                     onClick={() => {
                       setMenu(value.value);
+                      router.push(`?tab=${value.value}`);
                     }}
                   >
                     {value.value}
@@ -292,17 +292,23 @@ const MyAccount = () => {
           <div className="w-full">
             {menu === "Orders" && (
               <div>
-                <div className="grid grid-cols-6 mb-12 text-xs">
-                  {orderTableHeading?.map((heading, index) => {
-                    return (
-                      <div key={index} className="font-semibold">
-                        {heading.heading}
-                      </div>
-                    );
-                  })}
-                </div>
+                {(orders || [])?.length > 0 ? (
+                  <div className="grid grid-cols-6 mb-12 text-xs">
+                    {orderTableHeading?.map((heading, index) => {
+                      return (
+                        <div key={index} className="font-semibold">
+                          {heading.heading}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <h1 className="text-lg">No Orders Found</h1>
+                )}
                 <div>
                   {(orders || [])?.map((data, ind) => {
+                    if (data?.paymentStatus?.toLocaleLowerCase() !== "paid")
+                      return null;
                     return (
                       <div
                         key={ind}
@@ -310,16 +316,16 @@ const MyAccount = () => {
                       >
                         <div>
                           <Image
-                            src={"/product-order.png"}
+                            src={data?.image}
                             alt="product"
                             width={90}
                             height={64}
                           />
                         </div>
                         <div className="ml-2">{data?.name || ""}</div>
-                        <div>{data?.createdAt}</div>
-                        <div>{data?.total}</div>
-                        <div>{data.status}</div>
+                        <div className="flex h-full items-center" >{data?.createdAt}</div>
+                        <div  className="flex h-full items-center">{data?.total}</div>
+                        <div  className="flex h-full items-center">{data.status}</div>
                         <div className="px-6 py-2 bg-[#F7F2ED] w-fit text-primary-500 rounded-md cursor-pointer">
                           Track
                         </div>

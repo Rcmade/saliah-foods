@@ -65,7 +65,7 @@ const Checkout = () => {
   const [discountedTotal, setDiscountedTotal] = useState(totalValue);
   const [disablePhone, setDisablePhone] = useState({
     disabled: false,
-    phone:  null,
+    phone: null,
   });
   const { getAddressArray, addressArray } = useAddressModal();
   const [showLoggingMessage, setShowLoggingMessage] = useState("");
@@ -200,6 +200,7 @@ const Checkout = () => {
               color: "#121212",
             },
             handler: (response: RazorpayPaymentSuccess) => {
+              console.log({ response });
               fetch("/api/payment", {
                 method: "POST",
                 headers: {
@@ -229,16 +230,30 @@ const Checkout = () => {
                   );
                 });
             },
+            modal: {
+              ondismiss: async () => {
+                await fetch("/api/cancel-payment", {
+                  method: "DELETE",
+                  body: JSON.stringify({
+                    orderId: data.id,
+                    createdId: user?._id,
+                  }),
+                });
+              },
+            },
           };
           //@ts-ignore
           const paymentObject = new window.Razorpay(options);
           paymentObject.open();
+          console.log({ paymentObject });
           paymentObject.on("payment.failed", function (response: any) {
+            console.log({ response });
             toast.error(
               String(response?.error?.description) ||
                 "Payment failed. Please try again. Contact support for help"
             );
           });
+          console.log(paymentObject);
         } else if (data?.error) {
           toast.error(data.error);
           return;
@@ -252,6 +267,7 @@ const Checkout = () => {
         }
       }
     } catch (error) {
+      console.log({ error });
       toast.error("Payment failed. Please try again. Contact support for help");
     } finally {
       setIsLoading(false);

@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { Coupon, CouponSchema } from '@/lib/models/coupon.model';
+import { Coupon, CouponSchema } from "@/lib/models/coupon.model";
 
 import { IOrder } from "./models/order.model";
 import { TransformedOrderDataType } from "./types";
@@ -20,12 +20,19 @@ export const transformedOrderData = async (
       status: item.status,
       orderId: item.orderId,
       _id: orderItem?._id || "",
+      image: orderItem?.image || "",
+      paymentStatus: item.paymentStatus,
     }));
   });
 
   return data;
 };
-export function calculateDiscount(coupon: CouponSchema, totalAmount: number): number {
+export function calculateDiscount(
+  coupon: CouponSchema,
+  totalAmount: number
+): number {
   const discount = (coupon.discount / 100) * totalAmount;
-  return discount > coupon.maximum_discount ? coupon.maximum_discount : discount;
+  return discount > coupon.maximum_discount
+    ? coupon.maximum_discount
+    : discount;
 }

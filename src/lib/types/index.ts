@@ -19,6 +19,8 @@ export type TransformedOrderDataType = {
   status: string;
   orderId: string;
   _id: string;
+  image: string;
+  paymentStatus: string;
 };
 
 export type AddressT = z.infer<typeof AddressSchema> & {

@@ -10,7 +10,7 @@ import { connectToDB } from "@/config/mongoose.config";
 import crypto from "crypto";
 import { Payment } from "../models/payment.model";
 import { Product, ProductSchema } from "../models/products.model";
-import { Coupon, CouponSchema } from '@/lib/models/coupon.model';
+import { Coupon, CouponSchema } from "@/lib/models/coupon.model";
 import { calculateDiscount } from "../utils";
 
 const instance = new Razorpay({
@@ -54,11 +54,11 @@ export const handlePaymentAction = async (
     }
   }
 
-  if(userInfo.coupon){
+  if (userInfo.coupon) {
     const coupon = await Coupon.findOne({ coupon: userInfo.coupon });
-    if(coupon){
+    if (coupon) {
       const discountAmount = +calculateDiscount(coupon, total);
-      total = (total - discountAmount);
+      total = total - discountAmount;
     }
   }
   const payment_capture = 1;
@@ -80,14 +80,13 @@ export const handlePaymentAction = async (
     orderSummary: products,
     createdId: _id,
     orderId: order.id,
-    total,totalQuantity
+    total,
+    totalQuantity,
   };
 
+  const createdOrder = await OrderModel.create(formateOrderInfo);
 
-
-  await OrderModel.create(formateOrderInfo);
-
-  return order;
+  return { docOrderId: createdOrder?._id, ...order };
 };
 
 export const handleCheckoutAction = async (

@@ -8,6 +8,9 @@ export const POST = async (req: Request, res: Response) => {
     return Response.json({ error: "User _id not found!, please login" });
   }
   await connectToDB();
-  const order = await OrderModel.find({ createdId: body.userId });
+  const order = await OrderModel.find({
+    createdId: body.userId,
+    paymentStatus: "paid",
+  });
   return Response.json(order);
 };
