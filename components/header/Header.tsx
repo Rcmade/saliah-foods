@@ -84,7 +84,7 @@ const Header = () => {
       <div
         className={`flex  relative justify-between bg-[#1A5632] text-primary-500 items-center py-4 px-4 sm:px-16 md:px-20 ${mulish.className}`}
       >
-        <div className="md:flex gap-8 text-[1.25rem] hidden">
+        <div className="md:flex w-[33%] gap-8 text-[1.25rem] hidden">
           <Link className="block" href="/our-story">
             OUR STORY
           </Link>
@@ -161,7 +161,7 @@ const Header = () => {
             </div>
           </div>
         ) : null}
-        <div className="md:hidden">
+        <div className="md:hidden w-[33%]">
           <Image
             src={Menu}
             alt="logo"
@@ -169,17 +169,17 @@ const Header = () => {
             className="w-[35px]  flex sm:flex-col md:flex-row justify-center h-full cursor-pointer"
           />
         </div>
-        <div>
+        <div className="w-[33%] flex justify-center">
           <Image
             src="/svg/logo.svg"
             alt="logo"
             width={140}
             height={140}
-            className="w-[120px] md:w-[200px] ml-5 h-full cursor-pointer"
+            className="w-[120px] md:w-[200px]  h-full cursor-pointer"
             onClick={() => router.push("/")}
           />
         </div>
-        <div className="flex gap-8 text-sm items-center user-container">
+        <div className="flex justify-end w-[33%] gap-8 text-sm items-center user-container">
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center">
