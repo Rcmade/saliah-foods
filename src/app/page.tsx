@@ -18,7 +18,7 @@ export default async function Home() {
         alt="banner"
         width={1440}
         height={600}
-        className="w-full h-[300px] md:h-[70vh] object-cover "
+        className="w-full h-[300px] md:h-[70%] object-cover "
       />
       <div className="lg:py-12 pt-12 pb-8 bg-[url('/product-background.png')] bg-contain">
         <h2 className="text-primary-500 text-center">

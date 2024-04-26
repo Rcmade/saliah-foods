@@ -161,12 +161,12 @@ const Header = () => {
             </div>
           </div>
         ) : null}
-        <div>
+        <div className="md:hidden">
           <Image
             src={Menu}
             alt="logo"
             onClick={() => setMenu(!menu)}
-            className="w-[35px]  flex sm:flex-col md:flex-row justify-center h-full cursor-pointer  md:hidden"
+            className="w-[35px]  flex sm:flex-col md:flex-row justify-center h-full cursor-pointer"
           />
         </div>
         <div>
@@ -175,7 +175,7 @@ const Header = () => {
             alt="logo"
             width={140}
             height={140}
-            className="w-[120px] md:mr-44  md:w-[200px] h-full cursor-pointer"
+            className="w-[120px] md:w-[200px] ml-5 h-full cursor-pointer"
             onClick={() => router.push("/")}
           />
         </div>
