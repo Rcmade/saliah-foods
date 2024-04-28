@@ -172,7 +172,7 @@ const MyAccount = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-2xl mb-2">
-                      {user?.name}
+                      {user?.name || "Anonymous"}
                     </h3>
                     <div className="flex">
                       <Image
@@ -384,7 +384,7 @@ const MyAccount = () => {
                     className="!px-8"
                   />
                 </div>
-                <h3 className="font-semibold">Change Password</h3>
+                {/* <h3 className="font-semibold">Change Password</h3>
                 <div className="mt-6 grid gap-4">
                   <InputField
                     label="Password"
@@ -405,7 +405,7 @@ const MyAccount = () => {
                     parentClass="!w-fit"
                     className="!px-8"
                   />
-                </div>
+                </div> */}
                 <div className="flex gap-4 mt-8">
                   <div className="w-[200px]">Account actions</div>
                   <div className="grid gap-4">

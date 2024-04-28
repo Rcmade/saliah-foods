@@ -173,14 +173,14 @@ const Checkout = () => {
   async function onSubmit(values: z.infer<typeof checkoutSchema>) {
     try {
       setIsLoading(true);
-      if (user) {
+      if (user) {   
         const data: any = await handlePaymentAction(
           values,
           cartState?.cartItems as unknown as OrderItem[],
           { total: discountedTotal, totalQuantity },
           user?._id || ""
         );
-        if (!data?.error) {
+        if (!data?.error) {        
           const options = {
             key: process.env.NEXT_PUBLIC_RAZORPAY_API_KEY,
             amount: discountedTotal * 100,
@@ -745,7 +745,7 @@ const Checkout = () => {
                     className="rounded-md w-full justify-center"
                     disabled={isLoading}
                   >
-                    Buy Now
+                   { user ? "Buy Now":"Verify Phone Number to buy"}
                   </UiButton>
                 </div>
               </div>

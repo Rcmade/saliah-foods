@@ -17,7 +17,7 @@ const OurStory = () => {
         {/* ************** OUR STORY *********** */}
 
         <div className="text-center bg-no-repeat px-4 md:max-w-full md:m-auto py-10 md:py-20 bg-cover bg-[url('/story-background.png')] w-[100vw] flex flex-col justify-center items-center">
-          <div className="md:max-w-[800px] md:mt-12">
+          <div className="md:max-w-[620px] md:mt-12">
             <h2 className="md:text-4xl text-2xl md:text-6xl text-primary-500 tracking-wide">
               OUR STORY
             </h2>

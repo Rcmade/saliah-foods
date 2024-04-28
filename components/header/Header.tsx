@@ -111,7 +111,7 @@ const Header = () => {
                   }}
                 >
                   <span className="font-semibold  text-[1.25rem]  ">
-                    {user.name}
+                    {user?.name  || "Anonymous"}
                   </span>
                   <span>
                     <Image
@@ -187,7 +187,7 @@ const Header = () => {
                   title={user?.name}
                   className="font-semibold text-[1.25rem] max-w-28 overflow-hidden"
                 >
-                  {user.name}
+                  {user?.name || "Anonymous"}
                 </span>
                 <span>
                   <ChevronDown />

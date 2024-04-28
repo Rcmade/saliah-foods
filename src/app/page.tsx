@@ -51,7 +51,7 @@ export default async function Home() {
       <div className="px-4 md:px-20 md:py-16 py-8 ">
         <div className="flex justify-between md:items-center flex-col md:flex-row text-center md:text-start">
           <h2 className="text-primary-500 text-3xl">
-            Explore Our Exquisite <br /> Range of Date Products,
+            Explore Our Exquisite <br /> Celebrate Your Uniqueness,
           </h2>
           <Link
             href="/product-list"
