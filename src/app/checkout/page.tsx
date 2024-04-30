@@ -28,11 +28,12 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useUser } from "@/components/Providers/user-provider";
 import { toast } from "sonner";
-import { createOrUpdateUser, sendOtp } from "@/lib/actions/user-actions";
+import { createOrUpdateUser, sendOtp, updateUser } from "@/lib/actions/user-actions";
 import {
   CountryStateData,
   OrderItem,
   RazorpayPaymentSuccess,
+  User,
 } from "@/lib/interface";
 import { Mulish } from "next/font/google";
 import Link from "next/link";
@@ -42,6 +43,7 @@ import { handlePaymentAction } from "@/lib/actions/checkout-actions";
 import { useRouter } from "next/navigation";
 import OtpDialog from "@/components/Dialogs/OtpModal";
 import { useAddressModal } from "@/hooks/useAddressModal";
+import { AddressT } from "@/lib/types";
 
 const Checkout = () => {
   const { cartState, cartDispatch } = useCart();
@@ -67,7 +69,7 @@ const Checkout = () => {
     disabled: false,
     phone: null,
   });
-  const { getAddressArray, addressArray } = useAddressModal();
+  const { getAddressArray, addressArray , address } = useAddressModal();
   const [showLoggingMessage, setShowLoggingMessage] = useState("");
   const defaultMessage =
     "Welcome! It seems you're not logged in. Please enter your phone number to either log in or create an account.";
@@ -169,11 +171,75 @@ const Checkout = () => {
   const handleRemoveAllItems = () => {
     cartDispatch({ type: ActionTypes.REMOVE_ALL_ITEMS, payload: [] });
   };
+  async function addAddress(values: any) {
+    const currentAddress =  {
+      apartment: values.apartment,
+      city: values.city,
+      phone: values.phone,
+      state: values.state,
+      pinCode: values.pinCode,
+      streetAddress: values.streetAddress
+  }
+    setIsLoading(true);
+    try {
+      if (user?._id) {
+        const { data } = await axios.post("/api/address", {
+          ...address,
+          ...currentAddress,
+          createdId: user?._id,
+        });
+        if (data?.message) {
+          toast.success(data.message);
+          await getAddressArray(user?._id, true);
+          onClose();
+        } else {
+          toast.error(data?.error || "Failed to create address");
+        }
+      } else {
+        toast.error("Please login to continue.");
+      }
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  const handleUpdate = async (updatedData : User) => {
+    if (user) {
+      const data = await updateUser(user, updatedData);
+      if (data?.user) {
+        dispatch({
+          type: "LOGIN",
+          payload: { ...data?.user, token: user?.token },
+        });
+        toast.success(data.message);
+      } else {
+        toast.error(data.error);
+      }
+    }
+  };
+ 
 
   async function onSubmit(values: z.infer<typeof checkoutSchema>) {
+    console.log(user) ;
+    
     try {
       setIsLoading(true);
-      if (user) {   
+      if (user) { 
+        if(!user.name){
+          const updatedData = {
+            name: values.firstName + " " + values.lastName,
+            email: values.email,
+            phone: values.phone,
+            role: user.role,
+            token: user.token,
+            _id:user._id
+          }
+        await  handleUpdate(updatedData)
+        }
+        if (!address && !addressArray?.length) {
+          await addAddress(values)  
+        }
+       
         const data: any = await handlePaymentAction(
           values,
           cartState?.cartItems as unknown as OrderItem[],

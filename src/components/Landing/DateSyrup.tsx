@@ -30,6 +30,7 @@ import { ActionTypes, useCart } from "@/app/cart";
 import { Button } from "../ui/button";
 import { Mulish } from "next/font/google";
 import { ProductSchema } from "@/lib/models/products.model";
+import { syrupHealthData, syrupNaturalData } from "@/data/country-state-data";
 const mulish = Mulish({ subsets: ["latin"] });
 
 const DateSyrup =  () => {
@@ -98,6 +99,65 @@ const DateSyrup =  () => {
                     <span className="text-[#B68050] text-3xl my-10 border-b-[1px] pb-3 md:pr-20 border-[#E1CBB7]">
                       Health Benefits
                     </span>
+                    <ul className="grid md:grid-cols-1 grid-cols-2 items-start justify-start mt-10 gap-4 border-b-[1px] pb-3 md:pr-20 border-[#E1CBB7]">
+                      {syrupHealthData?.map(
+                        (value, index) => {
+                          return (
+                            <li
+                              className="flex flex-col items-center justofy-between justify-start md:items-start md:flex-row gap-4 border-b border-[#F0E5DB] pb-4"
+                              key={index}
+                            >
+                              <Image
+                                src={value.imgUrl}
+                                alt="image"
+                                width={52}
+                                height={52}
+                              />
+                              <span className="flex flex-col mt-auto mb-auto">
+
+                            
+                              <span className="text-[#B68050] font-bold text-center  md:text-start mt-auto mb-auto">
+                                {value.benefits.toUpperCase()}
+                              </span>
+                              <span className="text-[#B68050] font-bold text-center  md:text-start mt-auto mb-auto">
+                                {value.benefits2.toUpperCase()}
+                              </span>
+                              </span>
+                            </li>
+                          );
+                        }
+                      )}
+                    </ul>
+
+                    <ul className="grid md:grid-cols-1 grid-cols-2 items-start justify-start mt-10 gap-4  pb-3 md:pr-20 border-[#E1CBB7]">
+                      {syrupNaturalData?.map(
+                        (value, index) => {
+                          return (
+                            <li
+                              className="flex flex-col items-center justofy-between justify-start md:items-start md:flex-row gap-4 border-b border-[#F0E5DB] pb-4"
+                              key={index}
+                            >
+                              <Image
+                                src={value.imgUrl}
+                                alt="image"
+                                width={52}
+                                height={52}
+                              />
+                              <span className="flex flex-col mt-auto mb-auto">
+
+                            
+                              <span className="text-[#B68050] font-bold text-center  md:text-start mt-auto mb-auto">
+                                {value.benefits.toUpperCase()}
+                              </span>
+                              <span className="text-[#B68050] font-bold text-center  md:text-start mt-auto mb-auto">
+                                {value.benefits2.toUpperCase()}
+                              </span>
+                              </span>
+                            </li>
+                          );
+                        }
+                      )}
+                    </ul>
                   </div>
                   <div className="text-center  flex-1 md:block hidden">
                     <Image

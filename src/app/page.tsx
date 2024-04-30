@@ -55,7 +55,7 @@ export default async function Home() {
           </h2>
           <Link
             href="/product-list"
-            className="text-primary-500 hidden md:block border-b border-black w-fit cursor-pointer mt-6"
+            className="text-primary-500 hidden md:block border-b border-black w-fit cursor-pointer"
           >
             Shop all products
           </Link>

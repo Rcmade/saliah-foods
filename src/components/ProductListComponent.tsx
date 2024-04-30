@@ -25,6 +25,8 @@ enum SortType {
   PriceHighToLow = "Price - High to Low",
 }
 const ProductListComponent = ({ products }: { products: ProductSchema[] }) => {
+  
+  
   const [productsImage, setProductsImage] = React.useState<any>(
     products[0]?.images || null
   );
@@ -32,6 +34,7 @@ const ProductListComponent = ({ products }: { products: ProductSchema[] }) => {
 
   React.useEffect(() => {
     // setProducts(Products);
+    console.log("products==" , products);
     setProductsImage(Products?.products[0].images);
   }, []);
   const [selected, setSelected] = useState(
@@ -41,7 +44,7 @@ const ProductListComponent = ({ products }: { products: ProductSchema[] }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [productFilter, setProductFilter] = useState(false);
 
-  const [priceRange, setPriceRange] = useState([0, 500]);
+  const [priceRange, setPriceRange] = useState([0, 600]);
 
   useEffect(() => {
     if (window.innerWidth >= 768) {
@@ -132,12 +135,16 @@ const ProductListComponent = ({ products }: { products: ProductSchema[] }) => {
     filteredProducts = products?.filter((item: ProductSchema) =>
       selected === "All Categories" ? item : item.category?.includes(selected)
     );
+
     filteredProducts = filterProductsByPriceRange(
       priceRange[0],
       priceRange[1],
       filteredProducts
     );
+
     filteredProducts = sortProducts(sortType, filteredProducts);
+    console.log("filteredProducts === " , filteredProducts ,  products ,sortType);
+    
     setFilteredProducts(filteredProducts);
   };
 

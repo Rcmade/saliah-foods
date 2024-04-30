@@ -1,4 +1,8 @@
+"use client";
+import { useRouter } from "next/navigation";
+
 const TermsAndConditions = () => {
+  const router = useRouter();
   return (
     <>
       <div className="text-[#656565] py-12 bg-primary-100 px-10 grid gap-4 bg-[url('/net.png')]">
@@ -230,8 +234,8 @@ const TermsAndConditions = () => {
         </p>
         <p>
           Refunds, if approved, will be made between 10 and 30 days – onto the
-          original mode of payment. For more details, please visit our Returns
-          Policy page.
+          original mode of payment. For more details, please visit our 
+          <span className="underline mx-1" onClick={()=>router.push("/return-policy")} >Return Policy</span>page.
         </p>
       </div>
     </>

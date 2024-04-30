@@ -421,7 +421,7 @@ const MyAccount = () => {
                       />
                       <span className="font-semibold">Log out</span>
                     </div>
-                    <div className="flex gap-2 cursor-pointer w-fit">
+                    {/* <div className="flex gap-2 cursor-pointer w-fit">
                       <Image
                         src={"/svg/delete.svg"}
                         alt="trash"
@@ -431,7 +431,7 @@ const MyAccount = () => {
                       <span className="text-[#E71D35] font-semibold">
                         Delete account
                       </span>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

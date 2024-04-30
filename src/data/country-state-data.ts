@@ -42,3 +42,61 @@ export const countryStateData: CountryStateData = {
     "West Bengal",
   ],
 };
+export const syrupHealthData = [
+  {
+    imgUrl:'/svg/dateSyrup/image01.svg',
+    benefits:'STRENGTHENING',
+    benefits2:'BONES'
+  },
+  {
+    imgUrl:'/svg/dateSyrup/image02.svg',
+    benefits:'EASES  ',
+    benefits2:'CHILDBIRTH'
+
+  },
+  {
+    imgUrl:'/svg/dateSyrup/image03.svg',
+    benefits:'Healthier ',
+    benefits2:'Digestive System'
+
+  },
+  {
+    imgUrl:'/svg/dateSyrup/image04.svg',
+    benefits:'Good For ',
+    benefits2:'Skin'
+
+  },
+  {
+    imgUrl:'/svg/dateSyrup/image05.svg',
+    benefits:'Anti-Oxidant',
+    benefits2:''
+
+  },
+  // {
+  //   imgUrl:'/svg/dateSyrup/image06.svg',
+  //   benefits:'100% ',
+  //   benefits2:'Natural'
+
+  // },
+  // {
+  //   imgUrl:'/svg/dateSyrup/image07.svg',
+  //   benefits:'No Added ',
+  //   benefits2:'Sugar'
+
+  // },
+] 
+
+export const syrupNaturalData = [
+  {
+    imgUrl:'/svg/dateSyrup/image06.svg',
+    benefits:'100% ',
+    benefits2:'Natural'
+
+  },
+  {
+    imgUrl:'/svg/dateSyrup/image07.svg',
+    benefits:'No Added ',
+    benefits2:'Sugar'
+
+  },
+]
