@@ -173,7 +173,8 @@ export const loginAction = async (
     if (user) {
       const token = await userService.signJWT(user);
       cookies().set("authorization", token, { secure: true });
-      return { message: "You Are Verified", user, token };
+      const sendData = { message: "You Are Verified", user, token };
+      return JSON.parse(JSON.stringify(sendData));
     } else {
       return { error: "Failed to login!" };
     }
